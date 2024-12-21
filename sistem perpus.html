@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Perpustakaan</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Sistem Informasi Perpustakaan</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Form Tambah Buku -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                Tambah Buku
+            </div>
+            <div class="card-body">
+                <form id="formTambahBuku">
+                    <div class="form-group">
+                        <label for="judul">Judul Buku</label>
+                        <input type="text" id="judul" class="form-control" placeholder="Masukkan Judul Buku">
+                    </div>
+                    <div class="form-group">
+                        <label for="penulis">Penulis Buku</label>
+                        <input type="text" id="penulis" class="form-control" placeholder="Masukkan Penulis Buku">
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun">Tahun Terbit</label>
+                        <input type="number" id="tahun" class="form-control" placeholder="Masukkan Tahun Terbit">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="tambahBuku()">Tambah Buku</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabel Daftar Buku -->
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                Daftar Buku
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Penulis</th>
+                            <th>Tahun</th>
+                        </tr>
+                    </thead>
+                    <tbody id="daftarBuku">
+                        <!-- Data buku akan ditampilkan di sini -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript Functionality -->
+    <script>
+        let buku = [];
+
+        function tambahBuku() {
+            const judul = document.getElementById('judul').value;
+            const penulis = document.getElementById('penulis').value;
+            const tahun = document.getElementById('tahun').value;
+
+            if (judul && penulis && tahun) {
+                buku.push({
+                    judul,
+                    penulis,
+                    tahun
+                });
+                document.getElementById('formTambahBuku').reset();
+                tampilkanBuku();
+            } else {
+                alert('Harap isi semua kolom!');
+            }
+        }
+
+        function tampilkanBuku() {
+            const daftarBuku = document.getElementById('daftarBuku');
+            daftarBuku.innerHTML = '';
+
+            buku.forEach((b, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${b.judul}</td>
+                        <td>${b.penulis}</td>
+                        <td>${b.tahun}</td>
+                    </tr>`;
+                daftarBuku.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+
+</html>
